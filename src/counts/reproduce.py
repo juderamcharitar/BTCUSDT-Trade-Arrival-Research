@@ -1,6 +1,6 @@
 """Frozen BTC/USDT count-model evaluation. Uses only lagged one-second distinct-timestamp counts.
 
-Usage: python src/reproduce.py --data-dir /path/to/zips [--date 2026-10-23]
+Usage: python src/counts/reproduce.py --data-dir /path/to/zips [--date 2026-10-23]
 Requires: numpy pandas scipy. Results are out-of-sample retrospective, not preregistered.
 """
 from pathlib import Path
