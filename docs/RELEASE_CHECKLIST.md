@@ -1,13 +1,14 @@
 # Release and reproducibility checklist
 
-- [x] Consolidated count-model and continuous-time Hawkes analysis with clear distinction.
-- [x] Included source code, frozen parameters, saved outputs, figures, and research paper.
-- [x] Replayed October 25 count-model output using the packaged portable script; three scores match archived output to six decimals.
-- [x] Passed 3 chronology/scoring tests and 3 compensator checks.
-- [x] Produced four-page PDF and visually inspected rendered pages.
-- [x] Excluded ZIP raw data and resume files.
-- [ ] Fresh end-to-end re-fit of Phase 6 using portable paths on all three dates (original prior run supplied).
-- [ ] Independent external code and research review.
-- [ ] Explicit user approval to publish a public GitHub repository.
+- [x] Consolidated count-model and continuous-time Hawkes analyses, with clear distinction between them.
+- [x] Included source code, frozen parameters, saved outputs, figures, and working paper.
+- [x] Replayed October 25 count-model output using packaged portable script; three scores matched archived output to six decimals.
+- [x] Previously passed three chronology/scoring tests and three compensator checks (see archival evidence).
+- [x] Produced and visually inspected four-page working-paper PDF.
+- [x] Excluded raw data ZIPs and resume files.
+- [x] Obtained user approval and published the public GitHub repository.
+- [x] Moved research files to repository root.
+- [ ] Independent fresh-clone, end-to-end reproduction of Phase 6 fits with source ZIPs.
+- [ ] Independent external code and scientific review.
 
-Do not use this repository to support a claim of a validated causal Hawkes mechanism or investable alpha.
+Do not claim a verified causal Hawkes mechanism, peer-reviewed results, or investable trading alpha.
