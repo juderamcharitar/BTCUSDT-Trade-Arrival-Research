@@ -1,22 +1,62 @@
-# BTC/USDT Trade-Arrival Dynamics: Count Forecasting and Hawkes Diagnostics
+# BTC/USDT Trade-Arrival Dynamics
+### Count Forecasting, Execution Fragmentation, and Hawkes Model Diagnostics
 
-**Status:** exploratory research / working paper; not peer reviewed; no trading strategy or return claim.  
-**Author:** Jude Kriel Ramcharitar (2026)
+**Jude Kriel Ramcharitar · November 2026 · Exploratory research working paper**
 
-This repository consolidates two related **but distinct** analyses:
+[Read the paper (PDF)](paper/WORKING_PAPER.pdf) · [Paper source](paper/WORKING_PAPER.md) · [Results](results/) · [Reproduction guide](#reproduce-the-analysis)
 
-1. **One-second arrival-count forecasting** for distinct microsecond execution timestamps, comparing a blended trailing-rate baseline, a discrete-time exponential-history model, and an autoregressive count model. An independent frozen-parameter replay reproduced all 15 saved Oct 23–27 model/date log scores (see `docs/phase4_audit.md`).
-2. **Continuous-time exponential Hawkes diagnostics** using three operational event definitions on Oct 23–25, with a limited time-of-day Poisson comparison and time-rescaling residual tests. Hawkes parameters vary materially with execution grouping; most specifications fail one or more diagnostic checks. These pilot windows were previously examined and **are not pristine independent tests**.
+> **Research question:** Does recent BTC/USDT trade-arrival history improve short-horizon arrival forecasts, and are continuous-time Hawkes estimates robust to different definitions of a market event?
 
-## Most important findings
+This project investigates high-frequency execution arrivals using two complementary—but mathematically distinct—analyses:
 
-- Across five October 23–27 dates the count-AR model gained **+0.0571 negative-binomial log-score units per second** on average versus the blended trailing-rate baseline. The AR model beat the exponential-history count model on only 3 of 5 dates.
-- In three selected 20-minute windows, the continuous-time Hawkes specification outscored the limited nonstationary Poisson baseline in **9/9** event-definition/date comparisons, but estimates and goodness-of-fit are **sensitive to how executions are defined**. The beta estimate hit the optimizer bound on one fit. Conditional likelihood improvement alone is **not** a validated causal excitation mechanism.
-- Raw exchange trades are not parent orders. No proof of causality, market impact, future profit or investable alpha is claimed.
+1. **Discrete-time forecasting:** one-second counts of *distinct microsecond execution timestamps*, comparing adaptive trailing-rate, exponential-history, and autoregressive (AR) predictors. Frozen model parameters are evaluated chronologically on October 23–27, 2026.
+2. **Continuous-time point processes:** exponential Hawkes maximum-likelihood fits versus a limited time-of-day Poisson benchmark, with synthetic parameter recovery, sensitivity to event fragmentation, and held-out time-rescaling diagnostics on three selected October 23–25 pilot windows.
 
-## Reproducing the stored results
+## Key findings
 
-Create Python 3.11+ environment, then:
+| Analysis | Finding | Important qualification |
+|---|---|---|
+| One-second count forecasting | AR improved average negative-binomial predictive log score by **+0.0571 per second** relative to the blended trailing-rate benchmark across five evaluation dates. | AR outperformed the exponential-history predictor on **3/5** dates; residual calibration was imperfect. Model-family selection was informed by prior exploration. |
+| Continuous-time Hawkes | Hawkes achieved higher evaluation-window event log likelihood than the **tested** time-of-day Poisson baseline in **9/9** selected date/event-definition comparisons. | These are exploratory pilot comparisons, **not** proof Hawkes is a correct model or that it beats richer stochastic-intensity alternatives. |
+| Event definition | Fitted decay rates and characteristic timescales changed by orders of magnitude when executions were grouped into bursts. | Exchange-reported fills do **not** identify parent orders; one fit reached the optimizer’s decay limit and several residual diagnostics rejected. |
+
+**Bottom line:** Arrival history carries predictive information relative to the selected count baselines. Hawkes likelihood gains are not enough to establish a stable, causally interpretable self-excitation mechanism. **This project does not claim trading profitability, investable alpha, or causal identification.**
+
+![Evaluation of count-model log scores](figures/phase4_comparison.png)
+
+![Hawkes decay sensitivity to event definition](figures/decay_sensitivity.png)
+
+## Methods and evaluation
+
+- **Data:** public Binance BTCUSDT spot `trades` daily archives; the October 23–27 evaluation set contains **10,931,362 executions** and **2,521,208 unique microsecond timestamps**.
+- **Count models:** blended smoothed trailing-rate baseline, discrete-time exponential-history model, and lagged-count AR model. The latter two are **not** fitted continuous-time Hawkes processes. Mean weights were estimated using a Poisson objective and negative-binomial dispersion estimated separately—not joint NB maximum likelihood.
+- **Point process:** univariate exponential Hawkes with `mu > 0`, kernel mass `0 < n < 0.98`, and decay `beta > 0`; fit on 12:00–12:10 UTC and scored on 12:10–12:20 UTC. Events are alternately unique timestamps, starts of bursts separated by more than 1 ms, or starts of bursts separated by more than 10 ms.
+- **Diagnostics:** synthetic parameter recovery, conditional log likelihood, time-rescaling KS tests, lag-one residual correlations, and event-definition sensitivity. A non-rejected marginal KS test does **not** prove residual independence.
+
+For design chronology, limitations, and detailed statistics, see the [working paper](paper/WORKING_PAPER.pdf) and [Phase 6 report](docs/phase6_detailed_report.md).
+
+## Repository layout
+
+```text
+.
+├── paper/                 Working paper (PDF + Markdown)
+├── src/
+│   ├── counts/            Count evaluation and archived training script
+│   ├── continuous_time/   Hawkes estimator and synthetic validation
+│   └── hawkes/            Event definitions, likelihoods, rescaling
+├── tests/                 Numerical and chronology checks
+├── results/
+│   ├── counts/            Frozen parameters and retrospective scores
+│   └── hawkes/            Archived model fits and diagnostics
+├── figures/               Evaluation and sensitivity figures
+├── docs/                  Audit notes, source manifest, detailed report
+├── requirements.txt
+└── LICENSE
+```
+
+## Reproduce the analysis
+
+**Prerequisites:** Python 3.11+, packages in `requirements.txt`, and the relevant original Binance daily ZIP archives (not bundled). Downloads and SHA-256 identifiers are documented in [`docs/data_manifest.json`](docs/data_manifest.json); raw data must be placed in a local `data/` directory.
 
 ```bash
 python -m pip install -r requirements.txt
@@ -24,48 +64,37 @@ python tests/test_compensator.py
 python tests/test_causality.py
 ```
 
-For count-evaluation replay, download original Binance BTCUSDT `trades` ZIPs for Oct 23–27 and put them in `data/` (names and expected SHA-256 in `docs/data_manifest.json`), then:
+**Frozen-parameter count evaluation:** place daily `BTCUSDT-trades-2026-10-23.zip` through `BTCUSDT-trades-2026-10-27.zip` in `data/`, then run:
 
 ```bash
 python src/counts/reproduce.py --data-dir data --out results/counts_recomputed.json
 ```
 
-For the continuous-time event-definition analysis, place the 5 September ZIPs and Oct 23–25 ZIPs in `data/`, then run:
+**Continuous-time Hawkes experiment:** provide the five September training ZIPs and October 23–25 ZIPs; then:
 
 ```bash
 BTCUSDT_DATA_DIR=data python src/hawkes/run.py
 ```
 
-On Windows PowerShell:
+PowerShell alternative:
 
 ```powershell
 $env:BTCUSDT_DATA_DIR = "data"
 python src/hawkes/run.py
 ```
 
-This step is computationally more intensive and regenerates `results/hawkes_recomputed/` without overwriting archived outcomes. For synthetic parameter-recovery checks:
+**Estimator validation:** `src/continuous_time/validate.py` runs synthetic recovery **and** real-data pilot fits; it requires October 1 and October 23 daily ZIPs in `data/`:
 
 ```bash
 BTCUSDT_DATA_DIR=data python src/continuous_time/validate.py
 ```
 
-`src/counts/phase4_original.py` is preserved as an **archival training/validation script**. It is not certified here as an independently re-executed end-to-end training replay. The count replay checks frozen-parameter evaluation. Do not describe either analysis as pre-registered.
+`src/counts/phase4_original.py` is included for audit, but a complete independent re-fit of the original training pipeline is **not** certified. The packaged count replay verifies frozen-parameter scoring, not training. The full Phase 6 rerun from a fresh clone is also not yet independently certified.
 
-## Repository contents
+## Scope and limitations
 
-- `paper/`: consolidated working paper (PDF and Markdown)
-- `src/counts/`: frozen-model evaluation and archived fitting source
-- `src/continuous_time/`: continuous-time estimator and synthetic parameter-recovery code
-- `src/hawkes/`: operational event definitions, likelihood comparison and rescaling diagnostics
-- `tests/`: checks used in prior experiments
-- `results/`: archived model parameters and machine-readable results
-- `figures/`: documented graphs
-- `docs/`: audit notes, full Phase 6 report and checksummed source manifest
+The experiments were retrospective, and model-design decisions were influenced by prior exploration. The continuous-time evaluation windows were not untouched preregistered holdouts. The Poisson comparison does not capture stochastic intraday intensity. Grouped timestamps do not reconstruct market-order parentage. Limited day-level sample size, residual miscalibration, and optimizer boundary behavior constrain interpretation. No cross-exchange replication, execution-cost model, or return prediction is included.
 
-## Dataset and ethics
+**Data:** [Binance Public Data](https://data.binance.vision/). Review applicable terms before redistributing raw archives.
 
-Source: [Binance Public Data](https://data.binance.vision/), spot daily BTCUSDT `trades`. Raw ZIPs are excluded because they are large. Verify source, license and any applicable use conditions independently before redistributing raw trade data. The repository is a research artifact, not investment advice.
-
-## Research limitations
-
-The limited continuous-time Poisson benchmark does not model stochastic activity intensity. Event-gap grouping does not reconstruct aggressor parent orders. Marginal KS non-rejection is not independent-residual validation. Five-day score statistics have limited day-level inferential power. Results are retrospective and methods evolved after earlier analyses of nearby dates. See the paper for full details.
+**Status:** public code and working paper; exploratory and not peer reviewed. **Not investment advice.**
