@@ -1,0 +1,492 @@
+{
+  "design": {
+    "train_days": [
+      "2026-09-03",
+      "2026-09-10",
+      "2026-09-17",
+      "2026-09-24",
+      "2026-09-30"
+    ],
+    "evaluation_days": [
+      "2026-10-23",
+      "2026-10-24",
+      "2026-10-25"
+    ],
+    "event_definitions": [
+      "unique_microsecond_timestamp",
+      "burst_gap_1ms",
+      "burst_gap_10ms"
+    ],
+    "train_interval_UTC": "12:00-12:10",
+    "test_interval_UTC": "12:10-12:20",
+    "baseline": "2-minute time-of-day rate template using 5 Sep days, shrinkage 40% towards pooled mean, scaled using only first 10min on each evaluation day",
+    "status": "EXPLORATORY: evaluation dates were previously examined in earlier project phases; NOT novel independent testing"
+  },
+  "baseline_prior_counts": [
+    [
+      844.0,
+      671.0,
+      640.0,
+      589.0,
+      560.0,
+      1088.0,
+      835.0,
+      1108.0,
+      1153.0,
+      785.0
+    ],
+    [
+      696.0,
+      653.0,
+      580.0,
+      771.0,
+      757.0,
+      629.0,
+      712.0,
+      800.0,
+      593.0,
+      862.0
+    ],
+    [
+      1094.0,
+      699.0,
+      920.0,
+      425.0,
+      706.0,
+      793.0,
+      1056.0,
+      1346.0,
+      1086.0,
+      863.0
+    ],
+    [
+      849.0,
+      712.0,
+      516.0,
+      572.0,
+      930.0,
+      850.0,
+      662.0,
+      517.0,
+      653.0,
+      714.0
+    ],
+    [
+      591.0,
+      478.0,
+      374.0,
+      390.0,
+      341.0,
+      645.0,
+      397.0,
+      787.0,
+      535.0,
+      409.0
+    ]
+  ],
+  "baseline_template_counts": [
+    778.768,
+    675.4480000000001,
+    653.488,
+    619.528,
+    685.168,
+    770.488,
+    729.328,
+    836.8480000000001,
+    772.288,
+    725.848
+  ],
+  "rows": [
+    {
+      "date": "2026-10-23",
+      "executions": 33398,
+      "unique_timestamps": 5024,
+      "same_timestamp_execution_fraction": 0.8495718306485418,
+      "ids_nondecreasing": true,
+      "mixed_aggressor_side_timestamps": 3,
+      "event_fits": [
+        {
+          "definition": "unique_microsecond_timestamp",
+          "merge_gap_us": 0,
+          "train_events": 1949,
+          "test_events": 3075,
+          "hawkes_params": {
+            "mu": 2.3261685848040403,
+            "n": 0.28389039125113924,
+            "beta": 439.79997076048676,
+            "tau_s": 0.0022737609515317498,
+            "train_ll": 1947.1561947031157,
+            "success": true,
+            "boundary_beta": false,
+            "event_count": 1949,
+            "seeds": 4
+          },
+          "hawkes_test_ll": 6801.404192356695,
+          "seasonal_poisson_test_ll": 1746.8782762117457,
+          "homogeneous_poisson_test_ll": 1673.7867861961,
+          "delta_ll_vs_seasonal": 5054.5259161449485,
+          "per_event_ll_gain": 1.6437482654129913,
+          "hawkes_rescaling": {
+            "count": 3075,
+            "mean_compensated": 0.7375711824389549,
+            "var_compensated": 0.7963631282521462,
+            "ks_stat": 0.16992921983756626,
+            "ks_pvalue": 4.2589471524010834e-78,
+            "lag1_corr": 0.2869938090948029,
+            "fraction_z_under_point_one": 0.16975609756097562
+          },
+          "seasonal_poisson_rescaling": {
+            "count": 3075,
+            "mean_compensated": 0.7121094800071296,
+            "var_compensated": 1.7656117728154777,
+            "ks_stat": 0.44176294926987103,
+            "ks_pvalue": 0.0,
+            "lag1_corr": 0.31126168265644877,
+            "fraction_z_under_point_one": 0.5330081300813008
+          }
+        },
+        {
+          "definition": "burst_gap_1ms",
+          "merge_gap_us": 1000,
+          "train_events": 1655,
+          "test_events": 2212,
+          "hawkes_params": {
+            "mu": 2.045027166253552,
+            "n": 0.25860146735647316,
+            "beta": 52.753191037827335,
+            "tau_s": 0.018956199242675907,
+            "train_ll": 489.0499768542031,
+            "success": true,
+            "boundary_beta": false,
+            "event_count": 1655,
+            "seeds": 4
+          },
+          "hawkes_test_ll": 1736.0119903847765,
+          "seasonal_poisson_test_ll": 623.9549126843397,
+          "homogeneous_poisson_test_ll": 589.3541113001775,
+          "delta_ll_vs_seasonal": 1112.0570777004368,
+          "per_event_ll_gain": 0.5027382810580636,
+          "hawkes_rescaling": {
+            "count": 2212,
+            "mean_compensated": 0.8130549167598362,
+            "var_compensated": 0.743373975775328,
+            "ks_stat": 0.09656629740374512,
+            "ks_pvalue": 2.094560869155592e-18,
+            "lag1_corr": 0.19540239297190717,
+            "fraction_z_under_point_one": 0.13924050632911392
+          },
+          "seasonal_poisson_rescaling": {
+            "count": 2212,
+            "mean_compensated": 0.8406068483771256,
+            "var_compensated": 1.5715782909025955,
+            "ks_stat": 0.2765044454054768,
+            "ks_pvalue": 5.461629274749871e-150,
+            "lag1_corr": 0.23170617843386093,
+            "fraction_z_under_point_one": 0.3693490054249548
+          }
+        },
+        {
+          "definition": "burst_gap_10ms",
+          "merge_gap_us": 10000,
+          "train_events": 1382,
+          "test_events": 1662,
+          "hawkes_params": {
+            "mu": 1.4129165491604436,
+            "n": 0.3867877725851323,
+            "beta": 1.5081514234178193,
+            "tau_s": 0.663063393020423,
+            "train_ll": -166.82706280874254,
+            "success": true,
+            "boundary_beta": false,
+            "event_count": 1382,
+            "seeds": 4
+          },
+          "hawkes_test_ll": 111.13715243361321,
+          "seasonal_poisson_test_ll": 18.314812559419124,
+          "homogeneous_poisson_test_ll": 4.701914223261156,
+          "delta_ll_vs_seasonal": 92.82233987419409,
+          "per_event_ll_gain": 0.05584978331780631,
+          "hawkes_rescaling": {
+            "count": 1662,
+            "mean_compensated": 0.895573506899298,
+            "var_compensated": 0.7918081283733351,
+            "ks_stat": 0.06821323581721161,
+            "ks_pvalue": 3.614742131565951e-07,
+            "lag1_corr": 0.006254542967250493,
+            "fraction_z_under_point_one": 0.1233453670276775
+          },
+          "seasonal_poisson_rescaling": {
+            "count": 1662,
+            "mean_compensated": 0.9342370186174337,
+            "var_compensated": 1.2434841082189976,
+            "ks_stat": 0.11214774236197128,
+            "ks_pvalue": 1.1575208048130645e-18,
+            "lag1_corr": 0.12871949730501187,
+            "fraction_z_under_point_one": 0.1684717208182912
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "executions": 10779,
+      "unique_timestamps": 2967,
+      "same_timestamp_execution_fraction": 0.7247425549679933,
+      "ids_nondecreasing": true,
+      "mixed_aggressor_side_timestamps": 0,
+      "event_fits": [
+        {
+          "definition": "unique_microsecond_timestamp",
+          "merge_gap_us": 0,
+          "train_events": 1565,
+          "test_events": 1402,
+          "hawkes_params": {
+            "mu": 1.901621847763377,
+            "n": 0.2709392172872772,
+            "beta": 1999.9999999999998,
+            "tau_s": 0.0005,
+            "train_ll": 2046.25277452443,
+            "success": true,
+            "boundary_beta": true,
+            "event_count": 1565,
+            "seeds": 4
+          },
+          "hawkes_test_ll": 156.4116563206344,
+          "seasonal_poisson_test_ll": -253.5942313155756,
+          "homogeneous_poisson_test_ll": -220.88655024313357,
+          "delta_ll_vs_seasonal": 410.00588763621,
+          "per_event_ll_gain": 0.2924435717804636,
+          "hawkes_rescaling": {
+            "count": 1402,
+            "mean_compensated": 1.0829874806643254,
+            "var_compensated": 1.0052948760345417,
+            "ks_stat": 0.15432488210359432,
+            "ks_pvalue": 1.2670067754192175e-29,
+            "lag1_corr": 0.15663962145936539,
+            "fraction_z_under_point_one": 0.04208273894436519
+          },
+          "seasonal_poisson_rescaling": {
+            "count": 1402,
+            "mean_compensated": 1.2521376927183017,
+            "var_compensated": 2.351848171469277,
+            "ks_stat": 0.13505888912956676,
+            "ks_pvalue": 9.146577074182931e-23,
+            "lag1_corr": 0.16255193381194677,
+            "fraction_z_under_point_one": 0.21754636233951496
+          }
+        },
+        {
+          "definition": "burst_gap_1ms",
+          "merge_gap_us": 1000,
+          "train_events": 1191,
+          "test_events": 1298,
+          "hawkes_params": {
+            "mu": 1.5159894826524394,
+            "n": 0.23627768271112723,
+            "beta": 11.309396854582102,
+            "tau_s": 0.08842204521232634,
+            "train_ll": -241.5664908685411,
+            "success": true,
+            "boundary_beta": false,
+            "event_count": 1191,
+            "seeds": 4
+          },
+          "hawkes_test_ll": -159.4421899627705,
+          "seasonal_poisson_test_ll": -299.43046501376807,
+          "homogeneous_poisson_test_ll": -301.0666494473784,
+          "delta_ll_vs_seasonal": 139.98827505099757,
+          "per_event_ll_gain": 0.10784921036286407,
+          "hawkes_rescaling": {
+            "count": 1298,
+            "mean_compensated": 0.9355011813860394,
+            "var_compensated": 0.7279540220184527,
+            "ks_stat": 0.04704933665634725,
+            "ks_pvalue": 0.0061784175455662175,
+            "lag1_corr": 0.08185664580256223,
+            "fraction_z_under_point_one": 0.11325115562403698
+          },
+          "seasonal_poisson_rescaling": {
+            "count": 1298,
+            "mean_compensated": 1.0292546315159479,
+            "var_compensated": 1.392653245085167,
+            "ks_stat": 0.08787592774480255,
+            "ks_pvalue": 3.595985439500846e-09,
+            "lag1_corr": 0.12271277514513827,
+            "fraction_z_under_point_one": 0.17796610169491525
+          }
+        },
+        {
+          "definition": "burst_gap_10ms",
+          "merge_gap_us": 10000,
+          "train_events": 1085,
+          "test_events": 1178,
+          "hawkes_params": {
+            "mu": 0.9942706613815545,
+            "n": 0.45061090428360945,
+            "beta": 0.6203301365266223,
+            "tau_s": 1.6120448469572035,
+            "train_ll": -394.2188792435892,
+            "success": true,
+            "boundary_beta": false,
+            "event_count": 1085,
+            "seeds": 4
+          },
+          "hawkes_test_ll": -382.2055022275275,
+          "seasonal_poisson_test_ll": -386.0165798392288,
+          "homogeneous_poisson_test_ll": -387.14619052658884,
+          "delta_ll_vs_seasonal": 3.8110776117013074,
+          "per_event_ll_gain": 0.0032352101966904136,
+          "hawkes_rescaling": {
+            "count": 1178,
+            "mean_compensated": 0.9553922271796023,
+            "var_compensated": 0.787692346662175,
+            "ks_stat": 0.028117739609917702,
+            "ks_pvalue": 0.30368050053478446,
+            "lag1_corr": -0.02055744133011476,
+            "fraction_z_under_point_one": 0.09083191850594227
+          },
+          "seasonal_poisson_rescaling": {
+            "count": 1178,
+            "mean_compensated": 1.033166244857694,
+            "var_compensated": 1.1755856692814173,
+            "ks_stat": 0.027905599778030643,
+            "ks_pvalue": 0.31225200611924653,
+            "lag1_corr": 0.07303673150469016,
+            "fraction_z_under_point_one": 0.10441426146010187
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "executions": 11003,
+      "unique_timestamps": 3204,
+      "same_timestamp_execution_fraction": 0.708806689084795,
+      "ids_nondecreasing": true,
+      "mixed_aggressor_side_timestamps": 0,
+      "event_fits": [
+        {
+          "definition": "unique_microsecond_timestamp",
+          "merge_gap_us": 0,
+          "train_events": 1575,
+          "test_events": 1629,
+          "hawkes_params": {
+            "mu": 1.9257161908150269,
+            "n": 0.266388113618955,
+            "beta": 468.5653453105672,
+            "tau_s": 0.002134174048525069,
+            "train_ll": 1325.1531167608935,
+            "success": true,
+            "boundary_beta": false,
+            "event_count": 1575,
+            "seeds": 4
+          },
+          "hawkes_test_ll": 1594.607721303214,
+          "seasonal_poisson_test_ll": 1.104468411448579,
+          "homogeneous_poisson_test_ll": -2.8832203449967437,
+          "delta_ll_vs_seasonal": 1593.5032528917654,
+          "per_event_ll_gain": 0.978209486121403,
+          "hawkes_rescaling": {
+            "count": 1629,
+            "mean_compensated": 0.975508256937554,
+            "var_compensated": 1.1639118466604987,
+            "ks_stat": 0.05690020897976128,
+            "ks_pvalue": 5.021512102145585e-05,
+            "lag1_corr": 0.2153062140152407,
+            "fraction_z_under_point_one": 0.13014119091467158
+          },
+          "seasonal_poisson_rescaling": {
+            "count": 1629,
+            "mean_compensated": 1.086525458684161,
+            "var_compensated": 2.515114958617708,
+            "ks_stat": 0.28154447662923465,
+            "ks_pvalue": 1.027064808636864e-114,
+            "lag1_corr": 0.22144875109279905,
+            "fraction_z_under_point_one": 0.37262124002455493
+          }
+        },
+        {
+          "definition": "burst_gap_1ms",
+          "merge_gap_us": 1000,
+          "train_events": 1326,
+          "test_events": 1348,
+          "hawkes_params": {
+            "mu": 1.7753300177703941,
+            "n": 0.19668328331735999,
+            "beta": 63.480107042328115,
+            "tau_s": 0.015752966505447236,
+            "train_ll": 26.479654826240903,
+            "success": true,
+            "boundary_beta": false,
+            "event_count": 1326,
+            "seeds": 4
+          },
+          "hawkes_test_ll": 152.85105548338015,
+          "seasonal_poisson_test_ll": -256.38475060834276,
+          "homogeneous_poisson_test_ll": -257.0460890660163,
+          "delta_ll_vs_seasonal": 409.2358060917229,
+          "per_event_ll_gain": 0.3035873932431179,
+          "hawkes_rescaling": {
+            "count": 1348,
+            "mean_compensated": 0.9867391163142956,
+            "var_compensated": 1.0274240494108702,
+            "ks_stat": 0.031604839814360186,
+            "ks_pvalue": 0.13248141520285206,
+            "lag1_corr": 0.13559278399973743,
+            "fraction_z_under_point_one": 0.09495548961424333
+          },
+          "seasonal_poisson_rescaling": {
+            "count": 1348,
+            "mean_compensated": 1.1054371735351873,
+            "var_compensated": 1.9435702581293877,
+            "ks_stat": 0.16283203239649835,
+            "ks_pvalue": 1.0683054815166473e-31,
+            "lag1_corr": 0.1392555345743156,
+            "fraction_z_under_point_one": 0.25667655786350146
+          }
+        },
+        {
+          "definition": "burst_gap_10ms",
+          "merge_gap_us": 10000,
+          "train_events": 1143,
+          "test_events": 1135,
+          "hawkes_params": {
+            "mu": 1.6796902073594207,
+            "n": 0.11835200533519034,
+            "beta": 6.143799306406171,
+            "tau_s": 0.16276573340494616,
+            "train_ll": -391.27092511803346,
+            "success": true,
+            "boundary_beta": false,
+            "event_count": 1143,
+            "seeds": 4
+          },
+          "hawkes_test_ll": -382.1224407494948,
+          "seasonal_poisson_test_ll": -415.5780649978183,
+          "homogeneous_poisson_test_ll": -411.51292026321596,
+          "delta_ll_vs_seasonal": 33.45562424832349,
+          "per_event_ll_gain": 0.029476320923633028,
+          "hawkes_rescaling": {
+            "count": 1135,
+            "mean_compensated": 1.0062557488416473,
+            "var_compensated": 0.9982689238258095,
+            "ks_stat": 0.02839984453898759,
+            "ks_pvalue": 0.3133252607705729,
+            "lag1_corr": 0.05110814467549103,
+            "fraction_z_under_point_one": 0.09251101321585903
+          },
+          "seasonal_poisson_rescaling": {
+            "count": 1135,
+            "mean_compensated": 1.1316986606366533,
+            "var_compensated": 1.514160738475575,
+            "ks_stat": 0.045428636911473474,
+            "ks_pvalue": 0.017896941662890846,
+            "lag1_corr": 0.06372997714416848,
+            "fraction_z_under_point_one": 0.12246696035242291
+          }
+        }
+      ]
+    }
+  ],
+  "audit": []
+}

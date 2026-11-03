@@ -1,0 +1,86 @@
+{
+  "train": [
+    "2026-09-03",
+    "2026-09-10",
+    "2026-09-17",
+    "2026-09-24",
+    "2026-09-30"
+  ],
+  "validation": [
+    "2026-10-01",
+    "2026-10-08",
+    "2026-10-15",
+    "2026-10-22"
+  ],
+  "evaluation_dates": [
+    "2026-10-23",
+    "2026-10-24",
+    "2026-10-25",
+    "2026-10-26",
+    "2026-10-27"
+  ],
+  "models": {
+    "b30": {
+      "weights": [
+        1.0268079896016287
+      ],
+      "nb_size_k": 0.9442588313869017,
+      "poisson_objective_converged": true,
+      "poisson_optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+      "nb_opt_converged": true
+    },
+    "b300": {
+      "weights": [
+        1.1588501501982504
+      ],
+      "nb_size_k": 1.0058612156737199,
+      "poisson_objective_converged": true,
+      "poisson_optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+      "nb_opt_converged": true
+    },
+    "b60": {
+      "weights": [
+        1.6998145890063892
+      ],
+      "nb_size_k": 1.0500410189486256,
+      "poisson_objective_converged": true,
+      "poisson_optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+      "nb_opt_converged": true
+    },
+    "bblend": {
+      "weights": [
+        0.08475014846132946,
+        0.1344660156862757,
+        1.3622799973714452
+      ],
+      "nb_size_k": 1.0552248361892436,
+      "poisson_objective_converged": true,
+      "poisson_optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+      "nb_opt_converged": true
+    },
+    "EXP": {
+      "weights": [
+        0.4750568511319827,
+        0.3485912391123826
+      ],
+      "nb_size_k": 1.116444810181821,
+      "poisson_objective_converged": true,
+      "poisson_optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+      "nb_opt_converged": true
+    },
+    "AR": {
+      "weights": [
+        0.218653563998377,
+        0.21676909503034092,
+        0.19446895403325062,
+        0.21050501914308906,
+        0.16527118559943144
+      ],
+      "nb_size_k": 1.1381638418094144,
+      "poisson_objective_converged": true,
+      "poisson_optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+      "nb_opt_converged": true
+    }
+  },
+  "method": "Freeze September training parameters prior to reading October 23-27 evaluation archives; Oct 1-22 used only for diagnostics; model families and time constants were informed by previous experiments on other dates."
+}
