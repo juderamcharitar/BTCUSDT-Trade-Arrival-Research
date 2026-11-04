@@ -1,7 +1,9 @@
 # BTC/USDT Trade-Arrival Dynamics
 ### Count Forecasting, Execution Fragmentation, and Hawkes Model Diagnostics
 
-**Jude Kriel Ramcharitar · November 2026 · Exploratory research working paper**
+**Jude Kriel Ramcharitar — Sole Creator and Author**
+
+Independent Quantitative Research · November 2026 · Exploratory working paper
 
 [Read the paper (PDF)](paper/WORKING_PAPER.pdf) · [Paper source](paper/WORKING_PAPER.md) · [Results](results/) · [Reproduction guide](#reproduce-the-analysis)
 
