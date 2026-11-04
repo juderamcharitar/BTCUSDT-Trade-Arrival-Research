@@ -8,7 +8,7 @@
 - [x] Reran synthetic Hawkes parameter recovery and pilot timestamp-grouping diagnostics.
 - [x] Produced and visually inspected four-page working-paper PDF in initial package preparation.
 - [x] Excluded raw data ZIPs and resume files.
-- [x] Obtained user approval and published the public GitHub repository.
+- [x] Published the public GitHub repository.
 - [x] Moved research files to repository root.
 - [ ] Independent fresh clone on a different machine/environment with dependency installation.
 - [ ] Independent external code and scientific review.
